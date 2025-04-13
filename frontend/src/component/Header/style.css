@@ -1,0 +1,23 @@
+
+.nav-container{
+    background-color: rgb(30, 118, 153);
+}
+
+.nav-container .nav-ul{
+    list-style: none;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+
+  }
+  
+  .nav-container .nav-ul li{
+    margin: 20px 20px ;
+    text-decoration: none;
+
+  }
+  .nav-container .nav-ul li a{
+    text-decoration: none;
+    color: white;
+    font-size: 17px;
+}
