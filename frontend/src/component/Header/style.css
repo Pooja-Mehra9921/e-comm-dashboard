@@ -21,3 +21,9 @@
     color: white;
     font-size: 17px;
 }
+
+.nav-right{
+  display: flex;
+  align-items: center;
+  justify-content: right;
+}
