@@ -3,6 +3,7 @@ import Header from './component/Header';
 import PrivateComponent from './component/PrivateComponent';
 import { BrowserRouter, Route, Router, Routes } from 'react-router-dom';
 import Signup from './component/Signup';
+import Login from './component/Login';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
   </Route>
 
   <Route path='/signup' element={<Signup/>}/>
+  <Route path='/login' element={<Login/>}/>
 </Routes>
 <Footer/>
 
