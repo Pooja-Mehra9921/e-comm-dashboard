@@ -35,3 +35,10 @@
     font-size: 16px;
     font-weight: 600;
 }
+
+.error-msg{
+    margin-left: 29px;
+    margin-top: -10px;
+    color: red;
+    display: block;
+}

@@ -21,7 +21,7 @@ const Header = () => {
             <li><Link to="/add">Add Product</Link></li>
             <li><Link to="/update">Update Product</Link></li>
             <li><Link to="/profile">Profile</Link></li>
-            <li><Link to="/signup" onClick={handleLogout}>Logout</Link>
+            <li><Link to="/signup" onClick={handleLogout}>Logout ({ auth.name })</Link>
             </li>
           </ul>
         ) : (
