@@ -53,8 +53,39 @@ app.get("/products", async(req, resp)=>{
 app.delete("/product/:id", async(req, resp)=>{
     const data = await product.deleteOne({_id:req.params.id});
     resp.send(data);
+});
+
+
+app.get("/product/:id", async(req, resp)=>{
+    const result = await product.findOne({_id:req.params.id})
+    if(result){
+        resp.send(result);
+    }else{
+        req.send({result:"no record found"})
+    }
 })
 
+app.put("/update/:id", async(req, resp)=>{
+    const updateProduct =await product.updateOne(
+        {_id: req.params.id},
+        { $set:req.body}
+    )
+
+    resp.send(updateProduct);
+})
+
+
+app.get("/search/:key", async(req, resp)=>{
+    const result =await product.find({
+        "$or":[
+{name : {$regex: req.params.key}},
+{category:{$regex: req.params.key}},
+{company:{$regex: req.params.key}},
+{price:{$regex: req.params.key}}
+        ]
+    });
+    resp.send(result);
+})
 
 
 app.listen(5000);

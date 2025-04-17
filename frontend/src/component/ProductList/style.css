@@ -67,3 +67,13 @@ justify-content: center;
     border-radius: 4px;
     margin: 0 5px;
   }
+
+  .inputbox{
+    display: block;
+    margin: 3% auto;
+    width: 300px;
+    height: 20px;
+    border-radius: 20px;
+    padding: 10px;
+    border: 1px solid rgb(30, 118, 153);
+}

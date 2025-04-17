@@ -30,10 +30,28 @@ const ProductList = () => {
     }
   };
 
+
+  const handleSearchProduct =async(e)=>{
+    let key = e.target.value;
+    if(key){
+      let result = await fetch(`http://localhost:5000/search/${key}`)
+      result = await result.json();
+      if(result){
+       setProducts(result)
+      }
+    }else{
+      setProducts();
+    }
+ 
+
+  }
+
   return (
     <div className="productlist-main-container">
       <div className="productlist-container">
         <h1 className="product-list-heading">Product List</h1>
+        <input className="inputbox" type="text" placeholder="Search product" onChange={handleSearchProduct}/>
+
         <table className="productlist-table">
           <thead>
             <tr>
@@ -61,7 +79,7 @@ const ProductList = () => {
                     >
                       Delete
                     </button>
-                    <button className="update-btn" onClick={()=>navigate("/update")}>Update</button>
+                    <button className="update-btn" onClick={()=>navigate("/update/"+item._id)}>Update</button>
                   </td>
                 </tr>
               ))
