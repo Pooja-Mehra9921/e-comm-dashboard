@@ -1,7 +1,9 @@
 const express = require("express");
+const cors = require("cors");
+const Jwt = require("jsonwebtoken");
+const JwtKey = "e-comm"
 require("./database/config");
 const users = require("./database/user");
-const cors = require("cors");
 const product = require("./database/product");
 const app = express();
 
@@ -13,7 +15,14 @@ app.post("/register", async (req, resp) => {
   let result = await user.save();
   result = result.toObject();
   delete result.password;
-  resp.send(result);
+  Jwt.sign({result}, JwtKey, {expiresIn:"2h"},(error, token)=>{
+    if(error){
+        resp.send("something went wrong. please try again after some time");
+    }else{
+
+        resp.send({result , auth:token});
+    }
+  })
 });
 
 
@@ -22,7 +31,15 @@ app.post("/login", async (req, resp) => {
         let data = await users.findOne(req.body).select("-password");
 
         if(data){
-            resp.send(data);
+            Jwt.sign({data},JwtKey,{expiresIn:"2h"},(error, token)=>{
+            if(error){
+            resp.send("Something went wrong, please retry after some time");
+
+            }else{
+                resp.send({data, auth:token});
+
+            }
+            })
         }else{
             resp.send("user not found");
         }

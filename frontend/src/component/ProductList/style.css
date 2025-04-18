@@ -1,79 +1,81 @@
-.productlist-main-container{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.productlist-main-container {
+  padding: 2rem;
+  background-color: #f9f9f9;
 }
 
-.productlist-headings th td{
-    border: 1px solid skyblue;
-    padding: 5px 0;
-    width: 150px;
+.productlist-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.product-list-heading{
-    text-align: center;
-    margin: 40px;
+.product-list-heading {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #333;
 }
 
-.productlist-data{
-display: flex;
-list-style: none;
-
-}
-
-.productlist-data li{
-border: 1px solid skyblue;
-padding: 5px 0;
-width: 150px;
-display: flex;
-align-items: center;
-justify-content: center;
-
-}
-
-.dlt-btn{
-    padding: 5px;
-    cursor: pointer;
+.inputbox.search-box {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
 }
 
 .productlist-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .productlist-table th,
-  .productlist-table td {
-    border: 1px solid #ccc;
-    padding: 8px;
-    text-align: center;
-    width: 160px;
-  }
-  
-  .dlt-btn {
-    background-color: rgb(21, 77, 99);
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    cursor: pointer;
-    border-radius: 4px;
-  }
-  
-  .update-btn{
-    background-color: rgb(30, 118, 153);
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    cursor: pointer;
-    border-radius: 4px;
-    margin: 0 5px;
-  }
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
 
-  .inputbox{
-    display: block;
-    margin: 3% auto;
-    width: 300px;
-    height: 20px;
-    border-radius: 20px;
-    padding: 10px;
-    border: 1px solid rgb(30, 118, 153);
+.productlist-table th,
+.productlist-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.productlist-table th {
+  background-color: #f0f0f0;
+  font-weight: 600;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.delete-btn {
+  background-color: #ff5c5c;
+  color: white;
+}
+
+.update-btn {
+  background-color: #4caf50;
+  color: white;
+}
+
+.error-text {
+  color: #d32f2f;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.info-text {
+  color: #555;
+  text-align: center;
+  margin-top: 1rem;
 }

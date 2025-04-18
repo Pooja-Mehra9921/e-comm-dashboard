@@ -1,44 +1,71 @@
-.add-prod-main-container{
- 
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 3% auto;
-    
-}
-
-.inputbox{
-    display: block;
-    margin: 20px;
-    width: 300px;
-    height: 20px;
-    border-radius: 20px;
-    padding: 10px;
-    border: 1px solid rgb(30, 118, 153);
-}
-
-.product-heading{
+.add-prod-main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background-color: #f9f9f9;
+    min-height: 0 !important;
+  }
+  
+  .add-prod-container {
+    max-width: 400px !important;
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    margin: 10% auto;
+  }
+  
+  .product-heading {
     text-align: center;
-    color: rgb(30, 118, 153) ;
-}
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+  
+  .inputbox {
+    padding: 0.75rem;
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+  }
+  
+  .inputbox:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+  }
+  
+  .add-product-btn {
+    width: 400px !important;
 
-.add-product-btn{
-    margin: 20px;
-    width: 320px;
-    height: 40px;
-    border-radius: 20px;
-    padding: 10px;
-    cursor: pointer;
-    background-color: rgb(30, 118, 153);
-    border: none;
+    padding: 0.75rem;
+    margin-top: 1rem;
+    font-size: 1rem;
+    background-color: #28a745;
     color: white;
-    font-size: 16px;
-    font-weight: 600;
-}
-
-.error-msg{
-    margin-left: 29px;
-    margin-top: -10px;
-    color: red;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-product-btn:hover {
+    background-color: #218838;
+  }
+  
+  .error-msg {
+    color: #d32f2f;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
     display: block;
-}
+  }
+  
+  .success-msg {
+    color: #28a745;
+    font-size: 1rem;
+    text-align: center;
+    margin-top: 1rem;
+  }
+  

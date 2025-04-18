@@ -1,29 +1,37 @@
-
-.nav-container{
-    background-color: rgb(30, 118, 153);
-}
-
-.nav-container .nav-ul{
-    list-style: none;
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-
-  }
-  
-  .nav-container .nav-ul li{
-    margin: 20px 20px ;
-    text-decoration: none;
-
-  }
-  .nav-container .nav-ul li a{
-    text-decoration: none;
-    color: white;
-    font-size: 17px;
-}
-
-.nav-right{
+.nav-container {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: right;
+  background-color: #2e3a59;
+  padding: 1rem 2rem;
+  color: white;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.nav-ul {
+  list-style: none;
+  display: flex;
+  gap: 1.2rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.nav-ul li a:hover {
+  color: #f0c040;
+}
+
+.nav-right {
+  margin-left: auto;
 }

@@ -1,98 +1,111 @@
-import react, { useEffect, useState, } from "react";
+import React, { useEffect, useState } from "react";
 import "./style.css";
 import { useNavigate, useParams } from "react-router-dom";
 
 const UpdateProduct = () => {
-    const navigate = useNavigate();
-  const [name, setName] = useState();
-  const [price, setPrice] = useState();
-  const [category, setCategory] = useState();
-  const [company, setCompany] = useState();
-  const [error, setError] = useState(false);
+  const navigate = useNavigate();
   const params = useParams();
 
-useEffect(()=>{
-    handleUpdateProductApi();
-},[])
-  const handleUpdateProductApi = async()=>{
-let result = await fetch(`http://localhost:5000/product/${params.id}`)
-result = await result.json();
-console.log(result);
-setName(result.name);
-setCategory(result.category);
-setCompany(result.company);
-setPrice(result.price);
-  }
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [category, setCategory] = useState("");
+  const [company, setCompany] = useState("");
+  const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
 
-  const handleUpdateProductBtn = async () => {  
-    console.log(name, price, category, company);
-    let result = await fetch(`http://localhost:5000/update/${params.id}`,{
-        method:"put",
-        body:JSON.stringify({name, category, company, price}),
-        headers:{
-            "content-type" : "application/json"
-        }
-    })
+  useEffect(() => {
+    fetchProductDetails();
+  }, []);
 
-    result = await result.json();
-    console.log(result);
-    navigate("/");
+  const fetchProductDetails = async () => {
+    try {
+      const res = await fetch(`http://localhost:5000/product/${params.id}`);
+      const result = await res.json();
+      setName(result.name || "");
+      setPrice(result.price || "");
+      setCategory(result.category || "");
+      setCompany(result.company || "");
+    } catch (err) {
+      console.error("Failed to fetch product:", err);
+    }
+  };
+
+  const handleUpdateProductBtn = async () => {
+    if (!name || !price || !category || !company) {
+      setError(true);
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://localhost:5000/update/${params.id}`, {
+        method: "PUT",
+        body: JSON.stringify({ name, price, category, company }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const result = await response.json();
+
+      if (result) {
+        setSuccess(true);
+        setError(false);
+        setTimeout(() => navigate("/"), 1500); // Navigate after showing message
+      }
+    } catch (err) {
+      console.error("Update failed:", err);
+      setError(true);
+    }
   };
 
   return (
-    <>
-      <div className="add-prod-main-container">
-        <div className="add-prod-container">
-          <h1 className="product-heading">Update Product</h1>
-          <input
-            className="inputbox"
-            type="text"
-            placeholder="Enter product name"
-            value={name}
-            onChange={(e) => {
-              setName(e.target.value);
-            }}
-          />
-          {error && !name && <span className="error-msg">Please Enter valid name</span>}
-          <input
-            className="inputbox"
-            type="text"
-            placeholder="Enter product price"
-            value={price}
-            onChange={(e) => {
-              setPrice(e.target.value);
-            }}
-          />
-          {error && !price && <span className="error-msg">Please Enter valid price</span>}
+    <div className="add-prod-main-container">
+      <div className="add-prod-container">
+        <h1 className="product-heading">✏️ Update Product</h1>
 
-          <input
-            className="inputbox"
-            type="text"
-            placeholder="Enter product category"
-            value={category}
-            onChange={(e) => {
-              setCategory(e.target.value);
-            }}
-          />
-          {error && !category && <span className="error-msg">Please Enter valid category</span>}
+        <input
+          className="inputbox"
+          type="text"
+          placeholder="Product Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        {error && !name && <span className="error-msg">Product name is required.</span>}
 
-          <input
-            className="inputbox"
-            type="text"
-            placeholder="Enter product company"
-            value={company}
-            onChange={(e) => {
-              setCompany(e.target.value);
-            }}
-          />
-          {error && !company && <span className="error-msg">Please Enter valid company</span>}
+        <input
+          className="inputbox"
+          type="text"
+          placeholder="Product Price"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+        />
+        {error && !price && <span className="error-msg">Product price is required.</span>}
 
-          <button className="add-product-btn" onClick={handleUpdateProductBtn}>
-            Update Product
-          </button>
-        </div>
+        <input
+          className="inputbox"
+          type="text"
+          placeholder="Category"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        />
+        {error && !category && <span className="error-msg">Category is required.</span>}
+
+        <input
+          className="inputbox"
+          type="text"
+          placeholder="Company"
+          value={company}
+          onChange={(e) => setCompany(e.target.value)}
+        />
+        {error && !company && <span className="error-msg">Company name is required.</span>}
+
+        <button className="add-product-btn" onClick={handleUpdateProductBtn}>
+          Update Product
+        </button>
+
+        {success && <p className="success-msg">✅ Product updated successfully!</p>}
       </div>
-    </>
+    </div>
   );
 };
 
