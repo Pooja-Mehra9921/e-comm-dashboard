@@ -20,7 +20,7 @@ const Header = () => {
           <li><Link to="/">Home</Link></li>
           <li><Link to="/add">Add Product</Link></li>
           <li><Link to="/profile">Profile</Link></li>
-          <li><Link to="/signup" onClick={handleLogout}>Logout ({auth.data.name})</Link></li>
+          <li><Link to="/signup" onClick={handleLogout}>Logout ({auth?.data?.name})</Link></li>
         </ul>
       ) : (
         <ul className="nav-ul nav-right">
