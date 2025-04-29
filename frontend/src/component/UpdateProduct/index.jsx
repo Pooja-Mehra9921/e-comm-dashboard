@@ -19,7 +19,7 @@ const UpdateProduct = () => {
 
   const fetchProductDetails = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/product/${params.id}`);
+      const res = await fetch(`http://localhost:6000/product/${params.id}`);
       const result = await res.json();
       setName(result.name || "");
       setPrice(result.price || "");
@@ -37,7 +37,7 @@ const UpdateProduct = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/update/${params.id}`, {
+      const response = await fetch(`http://localhost:6000/update/${params.id}`, {
         method: "PUT",
         body: JSON.stringify({ name, price, category, company }),
         headers: {

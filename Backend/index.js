@@ -1,108 +1,116 @@
 const express = require("express");
 const cors = require("cors");
 const Jwt = require("jsonwebtoken");
-const JwtKey = "e-comm"
+const mongoose = require("mongoose");
+const JwtKey = "cravekart";
+
 require("./database/config");
 const users = require("./database/user");
-const product = require("./database/product");
-const app = express();
+const product = require("./database/items");
 
+const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.post("/register", async (req, resp) => {
-  let user = new users(req.body);
-  let result = await user.save();
-  result = result.toObject();
-  delete result.password;
-  Jwt.sign({result}, JwtKey, {expiresIn:"2h"},(error, token)=>{
-    if(error){
-        resp.send("something went wrong. please try again after some time");
-    }else{
+// ✅ Register User
+app.post("/register", async (req, res) => {
+  try {
+    let user = new users(req.body);
+    let result = await user.save();
+    result = result.toObject();
+    delete result.password;
 
-        resp.send({result , auth:token});
-    }
-  })
+    Jwt.sign({ result }, JwtKey, { expiresIn: "2h" }, (error, token) => {
+      if (error) {
+        res.status(500).send("Something went wrong. Please try again later.");
+      } else {
+        res.send({ result, auth: token });
+      }
+    });
+  } catch (err) {
+    res.status(500).send("Registration failed.");
+  }
 });
 
-
-app.post("/login", async (req, resp) => {
-    if(req.body.email && req.body.password){
-        let data = await users.findOne(req.body).select("-password");
-
-        if(data){
-            Jwt.sign({data},JwtKey,{expiresIn:"2h"},(error, token)=>{
-            if(error){
-            resp.send("Something went wrong, please retry after some time");
-
-            }else{
-                resp.send({data, auth:token});
-
-            }
-            })
-        }else{
-            resp.send("user not found");
+// ✅ User Login
+app.post("/login", async (req, res) => {
+  if (req.body.email && req.body.password) {
+    const data = await users.findOne(req.body).select("-password");
+    if (data) {
+      Jwt.sign({ data }, JwtKey, { expiresIn: "2h" }, (error, token) => {
+        if (error) {
+          res.status(500).send("Login failed, please try again.");
+        } else {
+          res.send({ data, auth: token });
         }
-    }else{
-        resp.send("user not found");
+      });
+    } else {
+      res.status(404).send("User not found.");
     }
-    
+  } else {
+    res.status(400).send("Missing email or password.");
+  }
 });
 
-
-app.post("/add-product", async(req, resp)=>{
+// ✅ Add New Product
+app.post("/add-product", async (req, res) => {
+  try {
     let data = new product(req.body);
     let result = await data.save();
-    resp.send(result);
-})
-
-
-app.get("/products", async(req, resp)=>{
-    let data = await product.find();
-    if(data.length>0){
-        resp.send(data);
-    }else{
-        resp.send({result:"no product found"});
-    }
-})
-
-
-app.delete("/product/:id", async(req, resp)=>{
-    const data = await product.deleteOne({_id:req.params.id});
-    resp.send(data);
+    res.send(result);
+  } catch (error) {
+    res.status(500).send("Failed to add product.");
+  }
 });
 
+// ✅ Get All Products
+app.get("/products", async (req, res) => {
+  const data = await product.find();
+  if (data.length > 0) {
+    res.send(data);
+  } else {
+    res.send({ result: "No product found" });
+  }
+});
 
-app.get("/product/:id", async(req, resp)=>{
-    const result = await product.findOne({_id:req.params.id})
-    if(result){
-        resp.send(result);
-    }else{
-        req.send({result:"no record found"})
-    }
-})
+// ✅ Delete Product
+app.delete("/product/:id", async (req, res) => {
+  const result = await product.deleteOne({ _id: req.params.id });
+  res.send(result);
+});
 
-app.put("/update/:id", async(req, resp)=>{
-    const updateProduct =await product.updateOne(
-        {_id: req.params.id},
-        { $set:req.body}
-    )
+// ✅ Get Product By ID
+app.get("/product/:id", async (req, res) => {
+  const result = await product.findOne({ _id: req.params.id });
+  if (result) {
+    res.send(result);
+  } else {
+    res.send({ result: "No record found" });
+  }
+});
 
-    resp.send(updateProduct);
-})
+// ✅ Update Product
+app.put("/update/:id", async (req, res) => {
+  const result = await product.updateOne(
+    { _id: req.params.id },
+    { $set: req.body }
+  );
+  res.send(result);
+});
 
+// ✅ Search Product
+app.get("/search/:key", async (req, res) => {
+  const result = await product.find({
+    $or: [
+      { name: { $regex: req.params.key, $options: "i" } },
+      { CategoryName: { $regex: req.params.key, $options: "i" } },
+      { description: { $regex: req.params.key, $options: "i" } },
+    ],
+  });
+  res.send(result);
+});
 
-app.get("/search/:key", async(req, resp)=>{
-    const result =await product.find({
-        "$or":[
-{name : {$regex: req.params.key}},
-{category:{$regex: req.params.key}},
-{company:{$regex: req.params.key}},
-{price:{$regex: req.params.key}}
-        ]
-    });
-    resp.send(result);
-})
-
-
-app.listen(5000);
+// ✅ Start Server
+app.listen(6000, () => {
+  console.log("Server is running on port 6000");
+});

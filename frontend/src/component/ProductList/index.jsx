@@ -17,7 +17,7 @@ const ProductList = () => {
       setLoading(true);
       setErrorMsg("");
 
-      const response = await fetch("http://localhost:5000/products", {
+      const response = await fetch("http://localhost:6000/products", {
         headers: {
           authorization: JSON.parse(localStorage.getItem("token")),
         },
@@ -41,7 +41,7 @@ const ProductList = () => {
     if (!confirmDelete) return;
 
     try {
-      const response = await fetch(`http://localhost:5000/product/${id}`, {
+      const response = await fetch(`http://localhost:6000/product/${id}`, {
         method: "DELETE",
       });
 
@@ -62,7 +62,7 @@ const ProductList = () => {
 
     if (key) {
       try {
-        const response = await fetch(`http://localhost:5000/search/${key}`, {
+        const response = await fetch(`http://localhost:6000/search/${key}`, {
           headers: {
             authorization: JSON.parse(localStorage.getItem("token")),
           },
