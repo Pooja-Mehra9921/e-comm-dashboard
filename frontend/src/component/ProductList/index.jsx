@@ -83,31 +83,32 @@ const ProductList = () => {
   return (
     <div className="productlist-main-container">
       <div className="productlist-container">
-        <h1 className="product-list-heading">📦 Product List</h1>
+        <h1 className="product-list-heading">🍽️ Food Items</h1>
 
         <input
           className="inputbox search-box"
           type="text"
-          placeholder="🔍 Search by name, company, or category"
+          placeholder="🔍 Search by name, category, or description"
           onChange={handleSearchProduct}
           aria-label="Search Product"
         />
 
         {loading ? (
-          <p className="info-text">Loading products, please wait...</p>
+          <p className="info-text">Loading food items, please wait...</p>
         ) : errorMsg ? (
           <p className="error-text">{errorMsg}</p>
         ) : products.length === 0 ? (
-          <p className="info-text">No products available.</p>
+          <p className="info-text">No food items available.</p>
         ) : (
           <table className="productlist-table">
             <thead>
               <tr>
                 <th>Sr No.</th>
+                <th>Image</th>
                 <th>Name</th>
-                <th>Price</th>
                 <th>Category</th>
-                <th>Company</th>
+                <th>Options</th>
+                <th>Description</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -115,10 +116,21 @@ const ProductList = () => {
               {products.map((item, index) => (
                 <tr key={item._id}>
                   <td>{index + 1}</td>
+                  <td>
+                    <img
+                      src={item.img}
+                      alt={item.name}
+                      style={{ width: "60px", borderRadius: "8px" }}
+                    />
+                  </td>
                   <td>{item.name}</td>
-                  <td>₹{item.price}</td>
-                  <td>{item.category}</td>
-                  <td>{item.company}</td>
+                  <td>{item.CategoryName}</td>
+                  <td>
+                    {item.options && item.options[0]
+                      ? `Half: ₹${item.options[0].half}, Full: ₹${item.options[0].full}`
+                      : "N/A"}
+                  </td>
+                  <td>{item.description}</td>
                   <td>
                     <div className="action-buttons">
                       <button
