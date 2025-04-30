@@ -32,7 +32,7 @@ const Signup = () => {
     }
 
     try {
-      const result = await fetch("http://localhost:6000/register", {
+      const result = await fetch("http://localhost:5000/register", {
         method: "POST",
         body: JSON.stringify({ name, email, password }),
         headers: {

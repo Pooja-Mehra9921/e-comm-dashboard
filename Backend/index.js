@@ -6,7 +6,7 @@ const JwtKey = "cravekart";
 
 require("./database/config");
 const users = require("./database/user");
-const product = require("./database/items");
+const items = require("./database/items");
 
 const app = express();
 app.use(express.json());
@@ -55,7 +55,7 @@ app.post("/login", async (req, res) => {
 // ✅ Add New Product
 app.post("/add-product", async (req, res) => {
   try {
-    let data = new product(req.body);
+    let data = new items(req.body);
     let result = await data.save();
     res.send(result);
   } catch (error) {
@@ -65,7 +65,7 @@ app.post("/add-product", async (req, res) => {
 
 // ✅ Get All Products
 app.get("/products", async (req, res) => {
-  const data = await product.find();
+  const data = await items.find();
   if (data.length > 0) {
     res.send(data);
   } else {
@@ -75,13 +75,13 @@ app.get("/products", async (req, res) => {
 
 // ✅ Delete Product
 app.delete("/product/:id", async (req, res) => {
-  const result = await product.deleteOne({ _id: req.params.id });
+  const result = await items.deleteOne({ _id: req.params.id });
   res.send(result);
 });
 
 // ✅ Get Product By ID
 app.get("/product/:id", async (req, res) => {
-  const result = await product.findOne({ _id: req.params.id });
+  const result = await items.findOne({ _id: req.params.id });
   if (result) {
     res.send(result);
   } else {
@@ -91,7 +91,7 @@ app.get("/product/:id", async (req, res) => {
 
 // ✅ Update Product
 app.put("/update/:id", async (req, res) => {
-  const result = await product.updateOne(
+  const result = await items.updateOne(
     { _id: req.params.id },
     { $set: req.body }
   );
@@ -100,7 +100,7 @@ app.put("/update/:id", async (req, res) => {
 
 // ✅ Search Product
 app.get("/search/:key", async (req, res) => {
-  const result = await product.find({
+  const result = await items.find({
     $or: [
       { name: { $regex: req.params.key, $options: "i" } },
       { CategoryName: { $regex: req.params.key, $options: "i" } },
@@ -111,6 +111,6 @@ app.get("/search/:key", async (req, res) => {
 });
 
 // ✅ Start Server
-app.listen(6000, () => {
+app.listen(5000, () => {
   console.log("Server is running on port 6000");
 });

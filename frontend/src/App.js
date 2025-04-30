@@ -4,9 +4,9 @@ import PrivateComponent from './component/PrivateComponent';
 import { BrowserRouter, Route, Router, Routes } from 'react-router-dom';
 import Signup from './component/Signup';
 import Login from './component/Login';
-import AddProduct from './component/AddProduct';
-import ProductList from './component/ProductList';
-import UpdateProduct from './component/UpdateProduct';
+import AddFoodItem from './component/AddFoodItem';
+import FoodItemList from './component/FoodItemList';
+import UpdateFoodItem from './component/UpdateFoodItem';
 
 
 function App() {
@@ -17,9 +17,9 @@ function App() {
 <Routes>
 
   <Route element={<PrivateComponent/>}>
-  <Route path='/' element={<ProductList/>}/>
-  <Route path='/add' element={<AddProduct/>}/>
-  <Route path='/update/:id' element={<UpdateProduct/>}/>
+  <Route path='/' element={<FoodItemList/>}/>
+  <Route path='/add' element={<AddFoodItem/>}/>
+  <Route path='/update/:id' element={<UpdateFoodItem/>}/>
   <Route path='/logout' element={<h1>this is a logout page</h1>}/>
   <Route path='/profile' element={<h1>this is a profile page</h1>}/>
   </Route>

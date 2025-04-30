@@ -1,8 +1,11 @@
-// AddProduct.js
+// AddFoodItem.js
 import React, { useState } from "react";
 import "./style.css";
+import { useNavigate } from "react-router-dom";
 
-const AddProduct = () => {
+const AddFoodItem = () => {
+
+  const navigate= useNavigate();
   const [CategoryName, setCategoryName] = useState("");
   const [name, setName] = useState("");
   const [img, setImg] = useState("");
@@ -12,7 +15,7 @@ const AddProduct = () => {
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  const handleAddProduct = async () => {
+  const handleAddFoodItem = async () => {
     if (!CategoryName || !name || !img || !description || !halfPrice || !fullPrice) {
       setError(true);
       setSuccess(false);
@@ -76,12 +79,12 @@ const AddProduct = () => {
         <input className="inputbox" type="text" placeholder="Full Price" value={fullPrice} onChange={(e) => setFullPrice(e.target.value)} />
         {error && !fullPrice && <span className="error-msg">Full price is required.</span>}
 
-        <button className="add-product-btn" onClick={handleAddProduct}>Add Product</button>
+        <button className="add-product-btn" onClick={handleAddFoodItem}>Add Food Item</button>
 
-        {success && <p className="success-msg">🎉 Product added successfully!</p>}
+        {success && <p className="success-msg">🎉 Food Item added successfully!</p> && navigate("/")}
       </div>
     </div>
   );
 };
 
-export default AddProduct;
+export default AddFoodItem;
