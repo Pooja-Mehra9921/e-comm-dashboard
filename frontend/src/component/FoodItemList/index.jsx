@@ -130,7 +130,7 @@ const ProductList = () => {
                       ? `Half: ₹${item.options[0].half}, Full: ₹${item.options[0].full}`
                       : "N/A"}
                   </td>
-                  <td>{item.description}</td>
+                  <td className="description-cell">{item.description}</td>
                   <td>
                     <div className="action-buttons">
                       <button

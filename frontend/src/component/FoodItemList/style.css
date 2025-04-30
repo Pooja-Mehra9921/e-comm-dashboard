@@ -5,6 +5,7 @@
 
 .productlist-container {
   max-width: 1000px;
+
   margin: 0 auto;
   background-color: white;
   border-radius: 10px;
@@ -29,7 +30,7 @@
 }
 
 .productlist-table {
-  width: 100%;
+  max-width: 1000px;
   border-collapse: collapse;
   text-align: left;
 }
@@ -78,4 +79,11 @@
   color: #555;
   text-align: center;
   margin-top: 1rem;
+}
+
+td.description-cell {
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 300px; /* Optional: Controls how wide the cell can be */
 }
